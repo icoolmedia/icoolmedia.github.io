@@ -1,0 +1,152 @@
+---
+---
+
+/* prettier-ignore */
+@use 'main
+{%- if jekyll.environment == 'production' -%}
+  .bundle
+{%- endif -%}
+';
+
+/* append your custom style below */
+
+:root {
+  --glass-bg: rgba(255, 255, 255, 0.65);
+  --glass-border: rgba(255, 255, 255, 0.5);
+  --glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
+  --glass-blur: blur(12px);
+  --win12-radius: 16px;
+  
+  /* Fix contrast issues - Darker colors for Light Mode */
+  --heading-color: #1a202c; /* Very dark grey/blue */
+  --body-color: #2d3748;    /* Dark grey */
+  --link-color: #3182ce;
+  --text-color: #2d3748;    /* Ensure main text is dark */
+}
+
+[data-mode="dark"] {
+  --glass-bg: rgba(20, 20, 30, 0.65);
+  --glass-border: rgba(255, 255, 255, 0.1);
+  --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+  
+  --heading-color: #f7fafc;
+  --body-color: #e2e8f0;
+  --text-color: #e2e8f0;
+}
+
+body {
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  background-attachment: fixed;
+  color: var(--body-color);
+}
+
+[data-mode="dark"] body {
+  background: linear-gradient(135deg, #0f2027 0%, #203a43 50%, #2c5364 100%);
+}
+
+/* Sidebar Glassmorphism */
+#sidebar {
+  background: var(--glass-bg) !important;
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border-right: 1px solid var(--glass-border);
+  box-shadow: var(--glass-shadow);
+}
+
+/* Fix Title Hover Color */
+#sidebar .site-title a:hover {
+    color: var(--heading-color) !important;
+    text-decoration: none;
+}
+
+/* Main Content Cards */
+#main-wrapper .post-preview, 
+#main-wrapper .card,
+.post-content {
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border-radius: var(--win12-radius);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--glass-shadow);
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+#main-wrapper .post-preview:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 40px 0 rgba(31, 38, 135, 0.25);
+  background: rgba(255, 255, 255, 0.8); /* Slightly more opaque on hover */
+}
+
+[data-mode="dark"] #main-wrapper .post-preview:hover {
+    background: rgba(30, 30, 40, 0.8);
+}
+
+/* Remove the misaligned :before element on post list */
+#post-list .post-preview::before,
+#post-list::before {
+  content: none !important;
+  display: none !important;
+}
+
+/* Topbar */
+#topbar-wrapper {
+  background: var(--glass-bg) !important;
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border-bottom: 1px solid var(--glass-border);
+}
+
+/* Images */
+img {
+  border-radius: var(--win12-radius);
+}
+
+/* Buttons */
+.btn {
+  border-radius: 20px;
+  backdrop-filter: blur(4px);
+}
+
+/* Search */
+#search-result-wrapper {
+    background: var(--glass-bg);
+    backdrop-filter: var(--glass-blur);
+    border-radius: var(--win12-radius);
+}
+
+/* Panel (Right side) */
+#panel-wrapper {
+    background: transparent;
+}
+
+#panel-wrapper .panel {
+    background: var(--glass-bg);
+    backdrop-filter: var(--glass-blur);
+    border-radius: var(--win12-radius);
+    border: 1px solid var(--glass-border);
+    padding: 1rem;
+    margin-bottom: 1rem;
+}
+
+/* Footer */
+footer {
+    background: var(--glass-bg) !important;
+    backdrop-filter: var(--glass-blur);
+    -webkit-backdrop-filter: var(--glass-blur);
+    border-top: 1px solid var(--glass-border);
+    margin-top: 2rem;
+    padding: 2rem 0;
+}
+
+/* Fix footer text color */
+footer, footer a, footer p, footer span {
+    color: var(--text-color) !important;
+}
+
+footer a:hover {
+    color: var(--link-color) !important;
+    text-decoration: underline;
+}
