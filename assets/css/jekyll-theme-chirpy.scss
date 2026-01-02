@@ -16,22 +16,29 @@
   --glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
   --glass-blur: blur(12px);
   --win12-radius: 16px;
+
+  /* Fix contrast issues - High Contrast for Light Mode */
+  --heading-color: #000000 !important; /* Pure Black */
+  --body-color: #1f2937 !important;    /* Dark Grey */
+  --link-color: #2563eb !important;    /* Blue */
+  --text-color: #1f2937 !important;
   
-  /* Fix contrast issues - Darker colors for Light Mode */
-  --heading-color: #1a202c; /* Very dark grey/blue */
-  --body-color: #2d3748;    /* Dark grey */
-  --link-color: #3182ce;
-  --text-color: #2d3748;    /* Ensure main text is dark */
+  /* Sidebar specific overrides */
+  --sidebar-active-color: #000000 !important;
+  --nav-hover-color: #000000 !important;
 }
 
-[data-mode="dark"] {
+[data-mode='dark'] {
   --glass-bg: rgba(20, 20, 30, 0.65);
   --glass-border: rgba(255, 255, 255, 0.1);
   --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+
+  --heading-color: #f3f4f6 !important;
+  --body-color: #e5e7eb !important;
+  --text-color: #e5e7eb !important;
   
-  --heading-color: #f7fafc;
-  --body-color: #e2e8f0;
-  --text-color: #e2e8f0;
+  --sidebar-active-color: #ffffff !important;
+  --nav-hover-color: #ffffff !important;
 }
 
 body {
@@ -40,7 +47,7 @@ body {
   color: var(--body-color);
 }
 
-[data-mode="dark"] body {
+[data-mode='dark'] body {
   background: linear-gradient(135deg, #0f2027 0%, #203a43 50%, #2c5364 100%);
 }
 
@@ -53,14 +60,22 @@ body {
   box-shadow: var(--glass-shadow);
 }
 
-/* Fix Title Hover Color */
-#sidebar .site-title a:hover {
-    color: var(--heading-color) !important;
-    text-decoration: none;
+/* Fix Title Hover Color - Explicit Override */
+#sidebar .site-title a:hover,
+#sidebar .sidebar-bottom #mode-toggle:hover, 
+#sidebar .sidebar-bottom a:hover {
+  color: #000000 !important; /* Force Black */
+  text-decoration: none;
+}
+
+[data-mode='dark'] #sidebar .site-title a:hover,
+[data-mode='dark'] #sidebar .sidebar-bottom #mode-toggle:hover, 
+[data-mode='dark'] #sidebar .sidebar-bottom a:hover {
+  color: #ffffff !important;
 }
 
 /* Main Content Cards */
-#main-wrapper .post-preview, 
+#main-wrapper .post-preview,
 #main-wrapper .card,
 .post-content {
   background: var(--glass-bg);
@@ -80,8 +95,8 @@ body {
   background: rgba(255, 255, 255, 0.8); /* Slightly more opaque on hover */
 }
 
-[data-mode="dark"] #main-wrapper .post-preview:hover {
-    background: rgba(30, 30, 40, 0.8);
+[data-mode='dark'] #main-wrapper .post-preview:hover {
+  background: rgba(30, 30, 40, 0.8);
 }
 
 /* Remove the misaligned :before element on post list */
@@ -91,12 +106,13 @@ body {
   display: none !important;
 }
 
-/* Topbar */
+/* Topbar - Transparent */
 #topbar-wrapper {
-  background: var(--glass-bg) !important;
-  backdrop-filter: var(--glass-blur);
-  -webkit-backdrop-filter: var(--glass-blur);
-  border-bottom: 1px solid var(--glass-border);
+  background: transparent !important;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  border-bottom: none;
+  box-shadow: none;
 }
 
 /* Images */
@@ -112,41 +128,175 @@ img {
 
 /* Search */
 #search-result-wrapper {
-    background: var(--glass-bg);
-    backdrop-filter: var(--glass-blur);
-    border-radius: var(--win12-radius);
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  border-radius: var(--win12-radius);
 }
 
 /* Panel (Right side) */
 #panel-wrapper {
-    background: transparent;
+  background: transparent;
 }
 
 #panel-wrapper .panel {
-    background: var(--glass-bg);
-    backdrop-filter: var(--glass-blur);
-    border-radius: var(--win12-radius);
-    border: 1px solid var(--glass-border);
-    padding: 1rem;
-    margin-bottom: 1rem;
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  border-radius: var(--win12-radius);
+  border: 1px solid var(--glass-border);
+  padding: 1rem;
+  margin-bottom: 1rem;
 }
 
-/* Footer */
+/* Footer - Transparent */
 footer {
-    background: var(--glass-bg) !important;
-    backdrop-filter: var(--glass-blur);
-    -webkit-backdrop-filter: var(--glass-blur);
-    border-top: 1px solid var(--glass-border);
-    margin-top: 2rem;
-    padding: 2rem 0;
+  background: transparent !important;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  border-top: none;
+  margin-top: 2rem;
+  padding: 2rem 0;
 }
 
 /* Fix footer text color */
-footer, footer a, footer p, footer span {
-    color: var(--text-color) !important;
+footer,
+footer a,
+footer p,
+footer span {
+  color: var(--text-color) !important;
 }
 
 footer a:hover {
-    color: var(--link-color) !important;
-    text-decoration: underline;
+  color: var(--link-color) !important;
+  text-decoration: underline;
 }
+
+/* TOC Customization - Windows 12 Style (Flat & Clean) */
+#toc-wrapper::before,
+#toc-wrapper::after,
+.toc-border-cover {
+  background: none !important;
+  display: none !important;
+  content: none !important;
+}
+
+#toc-wrapper {
+  mask-image: none !important;
+  -webkit-mask-image: none !important;
+}
+
+/* Modernize TOC Links */
+#toc-wrapper ul li a {
+  border-radius: 6px;
+  transition: background 0.2s ease;
+  padding: 2px 8px;
+}
+
+#toc-wrapper ul li a:hover {
+  background: rgba(0, 0, 0, 0.05);
+  text-decoration: none;
+}
+
+[data-mode="dark"] #toc-wrapper ul li a:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+/* Active TOC Item */
+#toc-wrapper ul li.active > a {
+  background: rgba(0, 0, 0, 0.08);
+  font-weight: 600;
+  color: var(--heading-color) !important;
+}
+
+[data-mode="dark"] #toc-wrapper ul li.active > a {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+/* --- Windows 12 & Mac Glassmorphism Enhancements --- */
+
+/* 1. Floating Sidebar (Desktop) */
+@media (min-width: 1200px) {
+  #sidebar {
+    margin: 16px;
+    height: calc(100vh - 32px) !important;
+    border-radius: 24px !important;
+    border: 1px solid var(--glass-border);
+    /* Ensure it floats above background */
+    position: fixed; 
+    left: 0;
+    top: 0;
+  }
+}
+
+/* 2. Navigation Active State - White Text */
+.nav-item.active .nav-link {
+  color: #ffffff !important;
+  background: rgba(0, 0, 0, 0.8) !important; /* High contrast background for active item */
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+[data-mode="dark"] .nav-item.active .nav-link {
+  background: rgba(255, 255, 255, 0.2) !important;
+  color: #ffffff !important;
+}
+
+.nav-item .nav-link:hover {
+    border-radius: 12px;
+    background: rgba(0,0,0,0.05);
+}
+
+/* 3. Code Highlighter Visibility Fix */
+.highlighter-rouge {
+  color: #24292f !important; /* Dark text for code blocks in light mode */
+  background: rgba(255, 255, 255, 0.5); /* Subtle background */
+  border-radius: 12px;
+}
+
+[data-mode="dark"] .highlighter-rouge {
+  color: #e6edf3 !important;
+}
+
+/* Inline Code */
+code.highlighter-rouge {
+  color: #d73a49 !important; /* Reddish for inline code */
+  background-color: rgba(27, 31, 35, 0.05);
+  border-radius: 6px;
+  padding: 0.2em 0.4em;
+}
+
+[data-mode="dark"] code.highlighter-rouge {
+  color: #ff7b72 !important;
+  background-color: rgba(240, 246, 252, 0.15);
+}
+
+/* 4. Mac-style Scrollbars */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(150, 150, 150, 0.3);
+  border-radius: 4px;
+  backdrop-filter: blur(4px);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(150, 150, 150, 0.5);
+}
+
+/* 5. Global Layout Softening */
+#main-wrapper {
+    padding-top: 1rem;
+}
+
+/* Make the main content area float slightly too if possible, or just softer edges */
+.row {
+    margin-left: -10px;
+    margin-right: -10px;
+}
+
