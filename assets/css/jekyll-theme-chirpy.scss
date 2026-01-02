@@ -19,10 +19,10 @@
 
   /* Fix contrast issues - High Contrast for Light Mode */
   --heading-color: #000000 !important; /* Pure Black */
-  --body-color: #1f2937 !important;    /* Dark Grey */
-  --link-color: #2563eb !important;    /* Blue */
-  --text-color: #1f2937 !important;
-  
+  --body-color: #000000 !important; /* Pure Black */
+  --link-color: #2563eb !important; /* Blue */
+  --text-color: #000000 !important;
+
   /* Sidebar specific overrides */
   --sidebar-active-color: #000000 !important;
   --nav-hover-color: #000000 !important;
@@ -33,10 +33,10 @@
   --glass-border: rgba(255, 255, 255, 0.1);
   --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
 
-  --heading-color: #f3f4f6 !important;
-  --body-color: #e5e7eb !important;
-  --text-color: #e5e7eb !important;
-  
+  --heading-color: #ffffff !important; /* Pure White */
+  --body-color: #ffffff !important; /* Pure White */
+  --text-color: #ffffff !important;
+
   --sidebar-active-color: #ffffff !important;
   --nav-hover-color: #ffffff !important;
 }
@@ -62,14 +62,14 @@ body {
 
 /* Fix Title Hover Color - Explicit Override */
 #sidebar .site-title a:hover,
-#sidebar .sidebar-bottom #mode-toggle:hover, 
+#sidebar .sidebar-bottom #mode-toggle:hover,
 #sidebar .sidebar-bottom a:hover {
   color: #000000 !important; /* Force Black */
   text-decoration: none;
 }
 
 [data-mode='dark'] #sidebar .site-title a:hover,
-[data-mode='dark'] #sidebar .sidebar-bottom #mode-toggle:hover, 
+[data-mode='dark'] #sidebar .sidebar-bottom #mode-toggle:hover,
 [data-mode='dark'] #sidebar .sidebar-bottom a:hover {
   color: #ffffff !important;
 }
@@ -196,7 +196,7 @@ footer a:hover {
   text-decoration: none;
 }
 
-[data-mode="dark"] #toc-wrapper ul li a:hover {
+[data-mode='dark'] #toc-wrapper ul li a:hover {
   background: rgba(255, 255, 255, 0.1);
 }
 
@@ -207,7 +207,7 @@ footer a:hover {
   color: var(--heading-color) !important;
 }
 
-[data-mode="dark"] #toc-wrapper ul li.active > a {
+[data-mode='dark'] #toc-wrapper ul li.active > a {
   background: rgba(255, 255, 255, 0.15);
 }
 
@@ -221,28 +221,40 @@ footer a:hover {
     border-radius: 24px !important;
     border: 1px solid var(--glass-border);
     /* Ensure it floats above background */
-    position: fixed; 
+    position: fixed;
     left: 0;
     top: 0;
   }
 }
 
-/* 2. Navigation Active State - White Text */
+/* 2. Navigation Active State - Windows 12 Style */
 .nav-item.active .nav-link {
-  color: #ffffff !important;
-  background: rgba(0, 0, 0, 0.8) !important; /* High contrast background for active item */
+  background-color: #2563eb !important; /* Hardcoded Blue */
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
   border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
-[data-mode="dark"] .nav-item.active .nav-link {
-  background: rgba(255, 255, 255, 0.2) !important;
+.nav-item.active .nav-link,
+.nav-item.active .nav-link span,
+.nav-item.active .nav-link i {
+  color: #ffffff !important; /* Force White */
+  font-weight: 600;
+}
+
+[data-mode='dark'] .nav-item.active .nav-link {
+  background-color: rgba(255, 255, 255, 0.15) !important;
+  box-shadow: none;
+}
+
+[data-mode='dark'] .nav-item.active .nav-link,
+[data-mode='dark'] .nav-item.active .nav-link span,
+[data-mode='dark'] .nav-item.active .nav-link i {
   color: #ffffff !important;
 }
 
 .nav-item .nav-link:hover {
-    border-radius: 12px;
-    background: rgba(0,0,0,0.05);
+  border-radius: 12px;
+  background: rgba(0, 0, 0, 0.05);
 }
 
 /* 3. Code Highlighter Visibility Fix */
@@ -252,7 +264,7 @@ footer a:hover {
   border-radius: 12px;
 }
 
-[data-mode="dark"] .highlighter-rouge {
+[data-mode='dark'] .highlighter-rouge {
   color: #e6edf3 !important;
 }
 
@@ -264,7 +276,7 @@ code.highlighter-rouge {
   padding: 0.2em 0.4em;
 }
 
-[data-mode="dark"] code.highlighter-rouge {
+[data-mode='dark'] code.highlighter-rouge {
   color: #ff7b72 !important;
   background-color: rgba(240, 246, 252, 0.15);
 }
@@ -291,12 +303,93 @@ code.highlighter-rouge {
 
 /* 5. Global Layout Softening */
 #main-wrapper {
-    padding-top: 1rem;
+  padding-top: 1rem;
 }
 
 /* Make the main content area float slightly too if possible, or just softer edges */
 .row {
-    margin-left: -10px;
-    margin-right: -10px;
+  margin-left: -10px;
+  margin-right: -10px;
 }
 
+/* --- High Contrast Overrides --- */
+
+/* Force high contrast for all text elements ONLY in Dark Mode */
+[data-mode='dark'] body,
+[data-mode='dark'] p,
+[data-mode='dark'] li,
+[data-mode='dark'] span,
+[data-mode='dark'] div,
+[data-mode='dark'] a,
+[data-mode='dark'] table,
+[data-mode='dark'] th,
+[data-mode='dark'] td,
+[data-mode='dark'] .table-wrapper,
+[data-mode='dark'] .table-wrapper td,
+[data-mode='dark'] .table-wrapper th,
+[data-mode='dark'] .table-wrapper code,
+[data-mode='dark'] .table-wrapper .highlighter-rouge {
+  color: #ffffff !important;
+}
+
+/* Specific fix for code inside tables in Dark Mode */
+[data-mode='dark'] .table-wrapper td code,
+[data-mode='dark'] .table-wrapper th code {
+  color: #ffffff !important;
+  background-color: transparent !important;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: var(--heading-color);
+}
+
+/* Muted text - Make it darker in light mode */
+.text-muted,
+.post-meta,
+.timeago,
+.categories,
+.tags,
+.post-meta a {
+  color: #4b5563 !important; /* Darker grey for better visibility */
+}
+
+[data-mode='dark'] .text-muted,
+[data-mode='dark'] .post-meta,
+[data-mode='dark'] .timeago,
+[data-mode='dark'] .categories,
+[data-mode='dark'] .tags,
+[data-mode='dark'] .post-meta a {
+  color: #9ca3af !important; /* Lighter grey for dark mode */
+}
+
+/* Blockquotes */
+blockquote {
+  color: var(--body-color) !important;
+  border-left-color: var(--link-color) !important;
+  background: rgba(0, 0, 0, 0.03);
+  padding: 1rem;
+  border-radius: 8px;
+}
+
+[data-mode='dark'] blockquote {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+/* Sidebar Inactive Links */
+#sidebar .nav-link {
+  color: #374151 !important; /* Dark grey for inactive links */
+}
+
+[data-mode='dark'] #sidebar .nav-link {
+  color: #d1d5db !important; /* Light grey for inactive links */
+}
+
+/* Post Preview Descriptions */
+.post-preview .post-content p {
+  color: var(--body-color) !important;
+}

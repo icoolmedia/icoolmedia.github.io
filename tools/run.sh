@@ -2,6 +2,9 @@
 #
 # Run jekyll serve and then launch the site
 
+# Ensure we use Homebrew Ruby 3.3
+export PATH="/opt/homebrew/opt/ruby@3.3/bin:$PATH"
+
 prod=false
 command="bundle exec jekyll s -l"
 host="127.0.0.1"
