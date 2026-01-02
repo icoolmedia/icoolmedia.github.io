@@ -281,6 +281,25 @@ code.highlighter-rouge {
   background-color: rgba(240, 246, 252, 0.15);
 }
 
+/* CRITICAL: Override code colors inside tables for Dark Mode */
+html[data-mode='dark'] .table-wrapper code.highlighter-rouge,
+html[data-mode='dark'] .table-wrapper code.language-plaintext,
+html[data-mode='dark'] .table-wrapper td code,
+html[data-mode='dark'] .table-wrapper th code,
+html[data-mode='dark'] table td code.highlighter-rouge,
+html[data-mode='dark'] table th code.highlighter-rouge {
+  color: #ffffff !important;
+  background-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+/* Table cells in Dark Mode - NO PREFIX, direct override */
+.table-wrapper td,
+.table-wrapper th,
+table td,
+table th {
+  color: #ffffff !important;
+}
+
 /* 4. Mac-style Scrollbars */
 ::-webkit-scrollbar {
   width: 8px;
